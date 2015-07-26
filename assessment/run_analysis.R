@@ -1,5 +1,5 @@
-#download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile="UCI HAR Dataset.zip", ,method="curl")
-#unzip("UCI HAR Dataset.zip")
+download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile="UCI HAR Dataset.zip", ,method="curl")
+unzip("UCI HAR Dataset.zip")
 #library(data.table)
 #library(tidyr)
 #library(dplyr)
@@ -79,3 +79,24 @@ total_acc_z_train <- read.table("UCI HAR Dataset/train/Inertial Signals/total_ac
 all_total_acc_z <- rbind(total_acc_z_test, total_acc_z_train)
 mean_total_acc_z <- apply(all_total_acc_z,1, mean)
 sd_total_acc_z <- apply(all_total_acc_z,1, sd)
+
+#make data.frame
+all_subjects["activities"] <- all_activities
+all_subjects["mean_body_acc_x"] <-mean_body_acc_x
+all_subjects["sd_body_acc_x"] <- sd_body_acc_x
+all_subjects["mean_body_acc_y"] <-mean_body_acc_y
+all_subjects["sd_body_acc_y"] <- sd_body_acc_y
+all_subjects["mean_body_acc_z"] <-mean_body_acc_z
+all_subjects["sd_body_acc_z"] <- sd_body_acc_z
+all_subjects["mean_body_gyro_x"] <-mean_body_gyro_x
+all_subjects["sd_body_gyro_x"] <- sd_body_gyro_x
+all_subjects["mean_body_gyro_y"] <-mean_body_gyro_y
+all_subjects["sd_body_gyro_y"] <- sd_body_gyro_y
+all_subjects["mean_body_gyro_z"] <-mean_body_gyro_z
+all_subjects["sd_body_gyro_z"] <- sd_body_gyro_z
+all_subjects["mean_total_acc_x"] <-mean_total_acc_x
+all_subjects["sd_total_acc_x"] <- sd_total_acc_x
+all_subjects["mean_total_acc_y"] <-mean_total_acc_y
+all_subjects["sd_total_acc_y"] <- sd_total_acc_y
+all_subjects["mean_total_acc_z"] <-mean_total_acc_z
+all_subjects["sd_total_acc_z"] <- sd_total_acc_z
