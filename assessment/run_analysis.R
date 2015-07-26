@@ -1,3 +1,10 @@
-#download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile="UCI HAR Dataset.zip", ,method="curl")
-#unzip("UCI HAR Dataset.zip")
-
+download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile="UCI HAR Dataset.zip", ,method="curl")
+unzip("UCI HAR Dataset.zip")
+#library(data.table)
+library(tidyr)
+library(dplyr)
+test_set <- read.table("UCI HAR Dataset/test/X_test.txt")
+train_set <- read.table("UCI HAR Dataset/train/X_train.txt")
+full_set <- rbind(test_set, train_set)
+features <- read.table("UCI HAR Dataset/features.txt")
+colnames(full_set) <- features[,2]
