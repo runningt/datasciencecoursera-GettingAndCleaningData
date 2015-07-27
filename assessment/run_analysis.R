@@ -1,7 +1,6 @@
 #download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile="UCI HAR Dataset.zip", ,method="curl")
 #unzip("UCI HAR Dataset.zip")
 library(data.table)
-#library(tidyr)
 library(dplyr)
 
 #activity labels
@@ -90,6 +89,7 @@ sd_total_acc_z <- apply(all_total_acc_z,1, sd)
 rm(total_acc_z_test, total_acc_z_train, all_total_acc_z)
 
 data = data.table(all_subjects)
+setnames(data, old="V1", new="subject")
 data <- data[,"activities":=all_activities]
 data <- data[,"body_acc_x_mean":=mean_body_acc_x]
 data <- data[,"body_acc_y_mean":=mean_body_acc_y]
@@ -130,3 +130,24 @@ mean_total_acc_z,
 sd_total_acc_x,
 sd_total_acc_y,
 sd_total_acc_z)
+
+data %>% group_by(subject, activities) %>% summarize(
+    body_acc_x_mean=mean(body_acc_x_mean),
+    body_acc_y_mean=mean(body_acc_y_mean),
+    body_acc_z_mean=mean(body_acc_z_mean),
+    body_acc_x_sd=mean(body_acc_x_sd),
+    body_acc_y_sd=mean(body_acc_y_sd),
+    body_acc_z_sd=mean(body_acc_z_sd),
+    velocity_x_mean=mean(velocity_x_mean),
+    velocity_y_mean=mean(velocity_y_mean),
+    velocity_z_mean=mean(velocity_z_mean),
+    velocity_x_sd=mean(velocity_x_sd),
+    velocity_y_sd=mean(velocity_y_sd),
+    velocity_z_sd=mean(velocity_z_sd),
+    total_acc_x_mean=mean(total_acc_x_mean),
+    total_acc_y_mean=mean(total_acc_y_mean),
+    total_acc_z_mean=mean(total_acc_z_mean),
+    total_acc_x_sd=mean(total_acc_x_sd),
+    total_acc_y_sd=mean(total_acc_y_sd),
+    total_acc_z_sd=mean(total_acc_z_sd)
+) %>% print  %>% write.table("tidy_data.txt", row.name=FALSE)
