@@ -88,6 +88,7 @@ mean_total_acc_z <- apply(all_total_acc_z,1, mean)
 sd_total_acc_z <- apply(all_total_acc_z,1, sd)
 rm(total_acc_z_test, total_acc_z_train, all_total_acc_z)
 
+#get all variables into one data.table
 data = data.table(all_subjects)
 setnames(data, old="V1", new="subject")
 data <- data[,"activities":=all_activities]
@@ -110,6 +111,7 @@ data <- data[,"total_acc_x_sd":=sd_total_acc_x]
 data <- data[,"total_acc_y_sd":=sd_total_acc_y]
 data <- data[,"total_acc_z_sd":=sd_total_acc_z]
 
+#remove duplicated variables
 rm(
 all_activities,
 mean_body_acc_x,
@@ -131,6 +133,7 @@ sd_total_acc_x,
 sd_total_acc_y,
 sd_total_acc_z)
 
+#group data by subject and activities, then count means for each column, print and write to file
 data %>% group_by(subject, activities) %>% summarize(
     body_acc_x_mean=mean(body_acc_x_mean),
     body_acc_y_mean=mean(body_acc_y_mean),
